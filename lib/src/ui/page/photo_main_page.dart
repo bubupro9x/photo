@@ -87,8 +87,9 @@ class _PhotoMainPageState extends State<PhotoMainPage>
     PhotoManager.addChangeCallback(_changeThrottle.call);
     PhotoManager.startChangeNotify();
     PhotoManager.getAssetPathList().then((data) {
+      var i = 0;
       if (widget.isAnimated) {
-        for (var i = 0; i < data.length; i++) {
+        for (i = 0; i < data.length; i++) {
           if (data[i].name == 'Animated') {
             Future.delayed(Duration(milliseconds: 100),(){
               _onGalleryChange(data[i]);
@@ -96,9 +97,21 @@ class _PhotoMainPageState extends State<PhotoMainPage>
             break;
           }
         }
+        if(i == data.length){
+          Future.delayed(Duration(milliseconds: 100),(){
+
+            _isEmpty = true;
+          setState(() {
+
+          });
+          });
+
+        }
       } else {}
     });
   }
+
+  bool _isEmpty = false;
 
   @override
   void didChangeDependencies() {
@@ -268,6 +281,7 @@ class _PhotoMainPageState extends State<PhotoMainPage>
     if (!_isInit) {
       return _buildLoading();
     }
+    if(_isEmpty) return SizedBox();
 
     final noMore = assetProvider.noMore;
 
