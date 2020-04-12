@@ -66,7 +66,7 @@ class _PhotoMainPageState extends State<PhotoMainPage>
     if (currentPath?.isAll == true) {
       return i18nProvider.getAllGalleryText(options);
     }
-    return  "Filter";
+    return "Filter";
   }
 
   GlobalKey scaffoldKey;
@@ -91,21 +91,17 @@ class _PhotoMainPageState extends State<PhotoMainPage>
       if (widget.isAnimated) {
         for (i = 0; i < data.length; i++) {
           if (data[i].name == 'Animated') {
-            Future.delayed(Duration(milliseconds: 100),(){
+            Future.delayed(Duration(milliseconds: 100), () {
               _onGalleryChange(data[i]);
             });
             break;
           }
         }
-        if(i == data.length){
-          Future.delayed(Duration(milliseconds: 100),(){
-
+        if (i == data.length) {
+          Future.delayed(Duration(milliseconds: 100), () {
             _isEmpty = true;
-          setState(() {
-
+            setState(() {});
           });
-          });
-
         }
       } else {}
     });
@@ -171,16 +167,18 @@ class _PhotoMainPageState extends State<PhotoMainPage>
             ],
           ),
           body: _buildBody(),
-          bottomNavigationBar: widget.isAnimated?SizedBox():_BottomWidget(
-            key: scaffoldKey,
-            provider: i18nProvider,
-            options: options,
-            galleryName: currentGalleryName,
-            onGalleryChange: _onGalleryChange,
-            onTapPreview: selectedList.isEmpty ? null : _onTapPreview,
-            selectedProvider: this,
-            galleryListProvider: this,
-          ),
+          bottomNavigationBar: widget.isAnimated
+              ? SizedBox()
+              : _BottomWidget(
+                  key: scaffoldKey,
+                  provider: i18nProvider,
+                  options: options,
+                  galleryName: currentGalleryName,
+                  onGalleryChange: _onGalleryChange,
+                  onTapPreview: selectedList.isEmpty ? null : _onTapPreview,
+                  selectedProvider: this,
+                  galleryListProvider: this,
+                ),
         ),
       ),
     );
@@ -281,7 +279,7 @@ class _PhotoMainPageState extends State<PhotoMainPage>
     if (!_isInit) {
       return _buildLoading();
     }
-    if(_isEmpty) return SizedBox();
+    if (_isEmpty) return SizedBox();
 
     final noMore = assetProvider.noMore;
 
@@ -313,7 +311,12 @@ class _PhotoMainPageState extends State<PhotoMainPage>
     var data = list[index];
     return RepaintBoundary(
       child: GestureDetector(
-        onTap: () => _onItemClick(data, index),
+        onTap: () {
+          if (widget.options.maxSelected == 1) {
+            addSelectEntity(data);
+            sure();
+          }
+        },
         child: Stack(
           children: <Widget>[
             ImageItem(
