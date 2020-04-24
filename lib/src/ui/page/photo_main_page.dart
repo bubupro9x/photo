@@ -204,19 +204,19 @@ class _PhotoMainPageState extends State<PhotoMainPage>
     if (isPushed) {
       return;
     }
-    Scaffold.of(scaffoldKey.currentContext).showSnackBar(
-      SnackBar(
-        content: Text(
-          msg,
-          style: TextStyle(
-            color: options.textColor,
-            fontSize: 14.0,
-          ),
-        ),
-        duration: Duration(milliseconds: 1500),
-        backgroundColor: themeColor.withOpacity(0.7),
-      ),
-    );
+//    Scaffold.of(scaffoldKey.currentContext).showSnackBar(
+//      SnackBar(
+//        content: Text(
+//          msg,
+//          style: TextStyle(
+//            color: options.textColor,
+//            fontSize: 14.0,
+//          ),
+//        ),
+//        duration: Duration(milliseconds: 1500),
+//        backgroundColor: themeColor.withOpacity(0.7),
+//      ),
+//    );
   }
 
   void _refreshList() async {
