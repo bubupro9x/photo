@@ -322,7 +322,7 @@ class _PhotoMainPageState extends State<PhotoMainPage>
             ImageItem(
               entity: data,
               themeColor: themeColor,
-              size: options.thumbSize,
+              size: 512,
               loadingDelegate: options.loadingDelegate,
               badgeDelegate: options.badgeDelegate,
             ),
